@@ -1,0 +1,60 @@
+// Prisma schema for the trade blotter.
+// Config (schema/migrations paths, DATABASE_URL) lives in backend/prisma.config.ts.
+
+generator client {
+  provider            = "prisma-client"
+  output              = "../backend/src/generated/prisma"
+  moduleFormat        = "esm"
+  importFileExtension = "ts"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+enum Side {
+  BUY
+  SELL
+}
+
+enum TradeStatus {
+  ACTIVE
+  CANCELLED
+}
+
+enum EventType {
+  CREATED
+  AMENDED
+  CANCELLED
+}
+
+model Trade {
+  id             Int          @id @default(autoincrement())
+  symbol         String
+  side           Side
+  quantity       Int
+  price          Float
+  trader         String
+  book           String
+  counterparty   String
+  tradeTimestamp DateTime
+  status         TradeStatus  @default(ACTIVE)
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+  events         TradeEvent[]
+
+  @@index([symbol])
+  @@index([tradeTimestamp])
+}
+
+// Audit trail: one row per create / amend / cancel.
+model TradeEvent {
+  id        Int       @id @default(autoincrement())
+  trade     Trade     @relation(fields: [tradeId], references: [id], onDelete: Cascade)
+  tradeId   Int
+  type      EventType
+  changes   Json // { field: { from, to } }
+  createdAt DateTime  @default(now())
+
+  @@index([tradeId])
+}
