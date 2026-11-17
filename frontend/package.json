@@ -1,12 +1,11 @@
 {
-  "name": "realtime-client",
+  "name": "trade-blotter-frontend",
   "private": true,
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "typecheck": "tsc",
-    "preview": "vite preview"
+    "test": "vitest run"
   },
   "dependencies": {
     "react": "^19.3.1",
@@ -19,6 +18,7 @@
     "@vitejs/plugin-react": "^6.3.0",
     "tailwindcss": "^4.3.5",
     "typescript": "^7.0.2",
-    "vite": "^8.3.7"
+    "vite": "^8.3.7",
+    "vitest": "^5.1.0"
   }
 }
