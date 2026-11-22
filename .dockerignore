@@ -1,12 +1,4 @@
 **/node_modules
 **/dist
+**/src/generated
 data
-**/*.db
-**/*.db-*
-.env
-.git
-.gitignore
-**/.DS_Store
-*.md
-docker-compose.yml
-Dockerfile

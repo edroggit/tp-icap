@@ -1,2 +1,0 @@
-# Keep LF line endings on Windows checkouts so files behave identically in Linux containers.
-* text=auto eol=lf

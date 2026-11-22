@@ -1,17 +1,12 @@
 services:
   app:
     build: .
-    image: realtime-app:latest
-    restart: unless-stopped
     ports:
-      - "${HOST_PORT:-3000}:${PORT:-3000}"
+      - "3000:3000"
     environment:
-      PORT: ${PORT:-3000}
-      DB_PATH: /app/data/app.db
-      HISTORY_LIMIT: ${HISTORY_LIMIT:-100}
-      WS_HEARTBEAT_MS: ${WS_HEARTBEAT_MS:-30000}
+      DATABASE_URL: file:/app/data/blotter.db
     volumes:
-      - app-data:/app/data
+      - blotter-data:/app/data
 
 volumes:
-  app-data:
+  blotter-data:
